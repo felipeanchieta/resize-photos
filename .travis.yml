@@ -5,9 +5,8 @@ install:
   - pip install -r requirements.txt
 services:
   - mongodb
-#before_script:
-  - sleep 15
+  - sleep 5
   - sudo service mongod status 
 script:
-  - python setup.py resizephotos
-  - python -m unittest tests/test_*.py
+  - python setup.py install
+  - python -m unittest -v tests/test_*.py
