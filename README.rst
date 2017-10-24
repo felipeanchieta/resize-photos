@@ -17,6 +17,15 @@ the images and a MongoDB adapter in order to persist the new files.
 
 It has been develop a module in which we do all this logic, so that we can only need to have a MongoDB running and run the Flask application by executing
 
->> python resizephotos/core.py
+>>> python resizephotos/core.py
 
 It is assumed you have Python 3 available, since it is the requirement.
+
+Automated Tests
+-----------------
+
+You can run the automated tests by executing:
+
+>>> python -m unittest tests/test_automated_tests
+
+It is going to check the state of B2W webservice and what we are doing here (downloading, resizing, saving, and so on).
