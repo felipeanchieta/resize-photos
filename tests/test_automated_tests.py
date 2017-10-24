@@ -28,15 +28,15 @@ class SanityCheckTest(unittest.TestCase):
 
         j = json.loads(r.text)
         self.assertNotEmpty(j)
-        self.assertIn("images", j)
+        self.assertIn('images', j)
         r.close()
 
-        imgs = j["images"]  # type: List[Any]
+        imgs = j['images']  # type: List[Any]
         for img in imgs:
             self.assertNotEmpty(img)
-            self.assertIn("url", img)
-            self.assertNotEmpty(img["url"])
-            r = requests.get(img["url"])  # type: requests.Response
+            self.assertIn('url', img)
+            self.assertNotEmpty(img['url'])
+            r = requests.get(img['url'])  # type: requests.Response
             self.assertEqual(r.status_code, 200)
             self.assertIn('content-type', r.headers)
             self.assertRegex(r.headers['content-type'], r'image/jpeg')
@@ -52,21 +52,22 @@ class SanityCheckTest(unittest.TestCase):
 
         # Resize images
         resized_imgs = [core.resize_image(img) for img in imgs]  # type: List[MultipleSizesImage]
+        self.assertEqual(len(resized_imgs), len(imgs))
         for small, medium, large in resized_imgs:
-            self.assertTupleEqual((240, 320), small.size)
-            self.assertTupleEqual((288, 384), medium.size)
-            self.assertTupleEqual((480, 640), large.size)
+            self.assertTupleEqual((320, 240), small.size)
+            self.assertTupleEqual((384, 288), medium.size)
+            self.assertTupleEqual((640, 480), large.size)
 
         # Persist images
         for small, medium, large in resized_imgs:
-            self.assertTrue(core.persist_image(small, size='small'))
-            # self.assertTrue(core.grid.exists(small.filename))
-            self.assertTrue(core.persist_image(medium, size='medium'))
-            # self.assertTrue(core.grid.exists(medium.filename))
-            self.assertTrue(core.persist_image(large, size='large'))
-            # self.assertTrue(core.grid.exists(large.filename))
+            self.assertTrue(core.persist_image(small))
+            self.assertTrue(core.grid.exists(filename=small.filename))
+            self.assertTrue(core.persist_image(medium))
+            self.assertTrue(core.grid.exists(filename=medium.filename))
+            self.assertTrue(core.persist_image(large))
+            self.assertTrue(core.grid.exists(filename=large.filename))
 
-        print(core.grid.list())
+        self.assertEqual(len(core.grid.list()), 3 * len(resized_imgs))
 
 
 if __name__ == '__main__':
