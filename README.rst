@@ -1,6 +1,9 @@
 Resize Photos Challenge Solution
 ================================
 
+.. image:: https://travis-ci.org/felipeanchieta/resize-photos.svg?branch=master
+    :target: https://travis-ci.org/felipeanchieta/resize-photos
+
 The Problem
 -----------
 
@@ -12,7 +15,7 @@ response as the pointer list for all these images, with their respective availab
 Proposed Solution
 -----------------
 
-The proposed solution was to build a webserver using Python Flask, for its simplicity, and then use scipy, PIL to resize
+The proposed solution was to build a webserver using Python Flask, for its simplicity, and then use PIL to resize
 the images and a MongoDB adapter in order to persist the new files.
 
 It has been develop a module in which we do all this logic, so that we can only need to have a MongoDB running and run the Flask application by executing
