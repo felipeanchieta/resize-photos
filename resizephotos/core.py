@@ -24,7 +24,6 @@ _client.drop_database(_db)
 grid = GridFS(_client[MONGO_DB])
 
 app = Flask(__name__)
-app.debug = True
 
 
 def download_originals() -> Generator:
