@@ -4,7 +4,10 @@ python:
 install:
   - pip install -r requirements.txt
 services:
-  - mongo
-before_script:
+  - mongodb
+#before_script:
   - sleep 15
-  - mongo mydb_test --eval 'db.createUser({user:"travis", pwd:"test", roles:["readWrite]});'
+  - sudo service mongod status 
+script:
+  - python setup.py resizephotos
+  - python -m unittest tests/test_*.py
