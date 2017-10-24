@@ -15,4 +15,8 @@ Proposed Solution
 The proposed solution was to build a webserver using Python Flask, for its simplicity, and then use scipy, PIL to resize
 the images and a MongoDB adapter in order to persist the new files.
 
-WIP: It has been develop a module in which we do all this logic.
+It has been develop a module in which we do all this logic, so that we can only need to have a MongoDB running and run the Flask application by executing
+
+>> python resizephotos/core.py
+
+It is assumed you have Python 3 available, since it is the requirement.
